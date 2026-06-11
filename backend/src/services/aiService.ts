@@ -1,5 +1,6 @@
 import { createRequire } from 'module';
 import fs from 'fs/promises';
+import WebSocket from 'ws';
 import { RecursiveCharacterTextSplitter } from '@langchain/textsplitters';
 import { GoogleGenerativeAIEmbeddings } from '@langchain/google-genai';
 import { SupabaseVectorStore } from '@langchain/community/vectorstores/supabase';
@@ -60,7 +61,10 @@ export async function ingestPDF(
   const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY,
-    { realtime: { params: { eventsPerSecond: -1 } }, global: { headers: {} } },
+    {
+      realtime: { transport: WebSocket as unknown as undefined },
+      auth: { persistSession: false, autoRefreshToken: false },
+    },
   );
 
   await SupabaseVectorStore.fromDocuments(docs, getEmbeddings(), {
