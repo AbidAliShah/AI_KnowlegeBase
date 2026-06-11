@@ -21,9 +21,23 @@ const PORT = Number(process.env.PORT ?? 3001);
 app.set('trust proxy', 1);
 
 app.use(helmet());
+
+const allowedOrigins = (process.env.FRONTEND_URL ?? 'http://localhost:3000')
+  .split(',')
+  .map((s) => s.trim());
+
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL ?? 'http://localhost:3000',
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      // Allow exact matches and any *.vercel.app preview deployment
+      const isAllowed =
+        allowedOrigins.includes(origin) ||
+        /\.vercel\.app$/.test(new URL(origin).hostname) ||
+        origin === 'http://localhost:3000';
+      if (isAllowed) return callback(null, true);
+      return callback(new Error(`CORS blocked: ${origin}`));
+    },
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Workspace-Id'],
   }),
