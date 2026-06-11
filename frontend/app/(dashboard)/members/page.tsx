@@ -116,7 +116,7 @@ export default function MembersPage() {
   return (
     <div className="flex flex-col h-full">
       <Header title="Members" />
-      <div className="flex-1 p-6 space-y-6 max-w-4xl">
+      <div className="flex-1 p-4 sm:p-6 space-y-6 max-w-4xl w-full">
         {isOwnerOrAdmin && (
           <Card>
             <CardHeader>

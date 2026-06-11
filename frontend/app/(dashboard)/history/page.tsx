@@ -41,7 +41,7 @@ export default function HistoryPage() {
   return (
     <div className="flex flex-col h-full">
       <Header title="Chat History" />
-      <div className="flex-1 p-6 space-y-4">
+      <div className="flex-1 p-4 sm:p-6 space-y-4">
         {loading ? (
           <div className="flex justify-center py-12">
             <Loader2 className="h-8 w-8 animate-spin text-indigo-400" />
@@ -60,13 +60,13 @@ export default function HistoryPage() {
         ) : (
           sessions.map((session) => (
             <Card key={session._id} className="hover:shadow-sm transition-shadow">
-              <CardContent className="flex items-center gap-4 py-4">
+              <CardContent className="flex items-center gap-3 sm:gap-4 py-4">
                 <div className="p-2 bg-indigo-50 rounded-lg shrink-0">
                   <MessageSquare className="h-5 w-5 text-indigo-600" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-gray-900 truncate">{session.title}</p>
-                  <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
+                  <div className="flex items-center gap-2 sm:gap-3 mt-1 text-xs text-gray-400 flex-wrap">
                     <span>{session.messages.length} messages</span>
                     <span>{new Date(session.updatedAt).toLocaleString()}</span>
                   </div>

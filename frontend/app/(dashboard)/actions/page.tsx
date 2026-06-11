@@ -66,7 +66,7 @@ export default function ActionsPage() {
   return (
     <div className="flex flex-col h-full">
       <Header title="AI Actions" />
-      <div className="flex-1 p-6 overflow-y-auto">
+      <div className="flex-1 p-4 sm:p-6 overflow-y-auto">
         <div className="max-w-3xl mx-auto space-y-6">
           <div>
             <h2 className="text-xl font-semibold flex items-center gap-2">

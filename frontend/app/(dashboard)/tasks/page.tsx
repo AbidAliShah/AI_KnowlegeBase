@@ -98,16 +98,17 @@ export default function TasksPage() {
   return (
     <div className="flex flex-col h-full">
       <Header title="Tasks" />
-      <div className="flex-1 p-6 max-w-4xl mx-auto w-full space-y-4">
+      <div className="flex-1 p-4 sm:p-6 max-w-4xl mx-auto w-full space-y-4">
         <Card>
           <CardContent className="p-4">
-            <form onSubmit={(e) => void create(e)} className="flex gap-2 items-center">
+            <form onSubmit={(e) => void create(e)} className="flex flex-col sm:flex-row gap-2 sm:items-center">
               <Input
                 placeholder="Add a new task..."
                 value={newTitle}
                 onChange={(e) => setNewTitle(e.target.value)}
                 className="flex-1"
               />
+              <div className="flex gap-2">
               <Select value={newPriority} onValueChange={(v) => setNewPriority(v as 'low' | 'medium' | 'high')}>
                 <SelectTrigger className="w-32">
                   <SelectValue />
@@ -121,11 +122,12 @@ export default function TasksPage() {
               <Button type="submit" disabled={creating || !newTitle.trim()}>
                 {creating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
               </Button>
+              </div>
             </form>
           </CardContent>
         </Card>
 
-        <div className="flex items-center gap-2 text-sm">
+        <div className="flex items-center gap-2 text-sm flex-wrap">
           {(['all', 'todo', 'in_progress', 'done'] as const).map((f) => (
             <button
               key={f}

@@ -96,7 +96,7 @@ export default function DocumentsPage() {
   return (
     <div className="flex flex-col h-full">
       <Header title="Documents" />
-      <div className="flex-1 p-6 space-y-6">
+      <div className="flex-1 p-4 sm:p-6 space-y-6">
         {/* Upload zone */}
         <Card
           className="border-2 border-dashed border-indigo-200 hover:border-indigo-400 transition-colors cursor-pointer"
@@ -139,28 +139,30 @@ export default function DocumentsPage() {
             {documents.map((doc) => (
               <Card key={doc._id} className="hover:shadow-sm transition-shadow">
                 <CardContent className="py-4">
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
                     <div className="p-2 bg-indigo-50 rounded-lg shrink-0">
                       <FileText className="h-5 w-5 text-indigo-600" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-gray-900 truncate">{doc.originalName}</p>
-                      <div className="flex items-center gap-3 mt-1 text-xs text-gray-400">
+                      <div className="flex items-center gap-2 sm:gap-3 mt-1 text-xs text-gray-400 flex-wrap">
                         <span>{formatBytes(doc.size)}</span>
                         {doc.pageCount && <span>{doc.pageCount} pages</span>}
                         {doc.chunkCount && <span>{doc.chunkCount} chunks</span>}
                         <span>{new Date(doc.createdAt).toLocaleDateString()}</span>
                       </div>
                     </div>
-                    <StatusBadge status={doc.status} />
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-gray-400 hover:text-red-500 shrink-0"
-                      onClick={() => void handleDelete(doc._id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
+                    <div className="flex items-center gap-2 shrink-0 ml-auto">
+                      <StatusBadge status={doc.status} />
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="text-gray-400 hover:text-red-500"
+                        onClick={() => void handleDelete(doc._id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                   {doc.status === 'failed' && doc.errorMessage && (
                     <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-md">

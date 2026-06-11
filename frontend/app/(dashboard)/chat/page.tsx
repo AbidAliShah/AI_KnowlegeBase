@@ -90,7 +90,7 @@ export default function ChatPage() {
   return (
     <div className="flex flex-col h-full">
       <Header title="Chat" />
-      <div className="flex-1 flex flex-col overflow-hidden p-4 gap-4">
+      <div className="flex-1 flex flex-col overflow-hidden p-3 sm:p-4 gap-3 sm:gap-4">
         <div className="flex justify-end">
           <Button variant="outline" size="sm" onClick={startNewChat}>
             <Plus className="h-4 w-4 mr-1" /> New Chat
@@ -116,7 +116,7 @@ export default function ChatPage() {
                 >
                   <div
                     className={cn(
-                      'max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed',
+                      'max-w-[85%] sm:max-w-[75%] rounded-2xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm leading-relaxed break-words',
                       msg.role === 'user'
                         ? 'bg-indigo-600 text-white rounded-tr-sm'
                         : 'bg-gray-100 text-gray-900 rounded-tl-sm',

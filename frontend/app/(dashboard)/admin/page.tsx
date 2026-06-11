@@ -66,7 +66,7 @@ export default function AdminPage() {
   return (
     <div className="flex flex-col h-full">
       <Header title="Admin Panel" />
-      <div className="flex-1 p-6 space-y-6">
+      <div className="flex-1 p-4 sm:p-6 space-y-6">
         {/* Stats */}
         {stats && (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -98,7 +98,7 @@ export default function AdminPage() {
           <TabsContent value="users" className="space-y-3 mt-4">
             {users.map((u) => (
               <Card key={u._id}>
-                <CardContent className="flex items-center gap-4 py-3">
+                <CardContent className="flex items-center gap-3 sm:gap-4 py-3">
                   <div className="h-9 w-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold shrink-0">
                     {u.name.charAt(0).toUpperCase()}
                   </div>
@@ -106,10 +106,10 @@ export default function AdminPage() {
                     <p className="font-medium text-gray-900 truncate">{u.name}</p>
                     <p className="text-sm text-gray-400 truncate">{u.email}</p>
                   </div>
-                  <Badge className={u.role === 'admin' ? 'bg-indigo-100 text-indigo-700' : ''}>
+                  <Badge className={u.role === 'admin' ? 'bg-indigo-100 text-indigo-700 shrink-0' : 'shrink-0'}>
                     {u.role}
                   </Badge>
-                  <p className="text-xs text-gray-400 hidden sm:block">
+                  <p className="text-xs text-gray-400 hidden md:block shrink-0">
                     {new Date(u.createdAt).toLocaleDateString()}
                   </p>
                   {u._id !== user?._id && (
@@ -130,24 +130,24 @@ export default function AdminPage() {
           <TabsContent value="documents" className="space-y-3 mt-4">
             {docs.map((doc) => (
               <Card key={doc._id}>
-                <CardContent className="flex items-center gap-4 py-3">
+                <CardContent className="flex items-center gap-3 sm:gap-4 py-3">
                   <FileText className="h-5 w-5 text-indigo-400 shrink-0" />
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-gray-900 truncate">{doc.originalName}</p>
-                    <div className="text-xs text-gray-400 flex gap-2 mt-1">
+                    <div className="text-xs text-gray-400 flex flex-wrap gap-2 mt-1">
                       <span>{formatBytes(doc.size)}</span>
                       {doc.userId && typeof doc.userId === 'object' && (
-                        <span>by {(doc.userId as User).email}</span>
+                        <span className="truncate">by {(doc.userId as User).email}</span>
                       )}
                     </div>
                   </div>
                   <Badge
                     className={
-                      doc.status === 'ready'
+                      (doc.status === 'ready'
                         ? 'bg-green-100 text-green-700'
                         : doc.status === 'failed'
                           ? 'bg-red-100 text-red-700'
-                          : 'bg-yellow-100 text-yellow-700'
+                          : 'bg-yellow-100 text-yellow-700') + ' shrink-0'
                     }
                   >
                     {doc.status}

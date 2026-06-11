@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { Sidebar } from '@/components/layout/sidebar';
+import { SidebarProvider } from '@/components/layout/sidebar-context';
 import { Loader2 } from 'lucide-react';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -25,9 +26,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="flex h-screen bg-gray-50 overflow-hidden">
-      <Sidebar />
-      <main className="flex-1 overflow-auto flex flex-col">{children}</main>
-    </div>
+    <SidebarProvider>
+      <div className="flex h-screen bg-gray-50 overflow-hidden">
+        <Sidebar />
+        <main className="flex-1 min-w-0 overflow-auto flex flex-col">{children}</main>
+      </div>
+    </SidebarProvider>
   );
 }
