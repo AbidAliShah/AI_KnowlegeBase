@@ -2,6 +2,7 @@ import mongoose, { Schema, type Document as MongoDocument } from 'mongoose';
 
 export interface IDocument extends MongoDocument {
   _id: mongoose.Types.ObjectId;
+  workspaceId: mongoose.Types.ObjectId;
   userId: mongoose.Types.ObjectId;
   originalName: string;
   storedName: string;
@@ -17,6 +18,7 @@ export interface IDocument extends MongoDocument {
 
 const DocumentSchema = new Schema<IDocument>(
   {
+    workspaceId: { type: Schema.Types.ObjectId, ref: 'Workspace', required: true, index: true },
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
     originalName: { type: String, required: true },
     storedName: { type: String, required: true },

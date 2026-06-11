@@ -2,6 +2,8 @@ import { Router } from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { User } from '../models/User.js';
+import { Workspace } from '../models/Workspace.js';
+import { WorkspaceMember } from '../models/WorkspaceMember.js';
 import { authenticate } from '../middleware/auth.js';
 import type { AuthRequest } from '../middleware/auth.js';
 import { createError } from '../middleware/errorHandler.js';
@@ -42,13 +44,31 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
 
     const user = await User.create({ name, email, password, role });
 
+    // Auto-create personal workspace for new user
+    const baseSlug = (name as string)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+      .substring(0, 30) || 'workspace';
+    const slug = `${baseSlug}-${Date.now().toString(36)}`;
+    const workspace = await Workspace.create({
+      name: `${(name as string).split(' ')[0]}'s Workspace`,
+      slug,
+      ownerId: user._id,
+    });
+    await WorkspaceMember.create({
+      workspaceId: workspace._id,
+      userId: user._id,
+      role: 'owner',
+    });
+
     const token = jwt.sign(
       { id: user._id, email: user.email, role: user.role },
       process.env.JWT_SECRET!,
       { expiresIn: '7d' },
     );
 
-    return res.status(201).json({ token, user });
+    return res.status(201).json({ token, user, workspace });
   } catch (err) {
     return next(err);
   }

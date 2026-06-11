@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/contexts/AuthContext';
+import { WorkspaceProvider } from '@/contexts/WorkspaceContext';
 
 import './globals.css';
 
@@ -16,8 +17,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body className={GeistSans.className}>
         <AuthProvider>
-          {children}
-          <Toaster />
+          <WorkspaceProvider>
+            {children}
+            <Toaster />
+          </WorkspaceProvider>
         </AuthProvider>
       </body>
     </html>

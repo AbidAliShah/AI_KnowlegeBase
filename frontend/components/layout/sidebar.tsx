@@ -13,14 +13,21 @@ import {
   ShieldCheck,
   LogOut,
   BrainCircuit,
+  Users,
+  Sparkles,
+  ListChecks,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { WorkspaceSwitcher } from './workspace-switcher';
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/documents', label: 'Documents', icon: FileText },
   { href: '/chat', label: 'Chat', icon: MessageSquare },
+  { href: '/actions', label: 'AI Actions', icon: Sparkles },
+  { href: '/tasks', label: 'Tasks', icon: ListChecks },
   { href: '/history', label: 'History', icon: History },
+  { href: '/members', label: 'Members', icon: Users },
   { href: '/settings', label: 'Settings', icon: Settings },
 ];
 
@@ -30,9 +37,13 @@ export function Sidebar() {
 
   return (
     <aside className="flex flex-col w-64 min-h-screen bg-gray-900 text-white px-4 py-6 shrink-0">
-      <div className="flex items-center gap-2 mb-8 px-2">
+      <div className="flex items-center gap-2 mb-6 px-2">
         <BrainCircuit className="h-7 w-7 text-indigo-400" />
         <span className="text-lg font-bold tracking-tight">KnowledgeAI</span>
+      </div>
+
+      <div className="mb-4">
+        <WorkspaceSwitcher />
       </div>
 
       <nav className="flex-1 space-y-1">

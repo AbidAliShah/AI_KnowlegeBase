@@ -6,6 +6,8 @@ import { createError } from '../middleware/errorHandler.js';
 import { User } from '../models/User.js';
 import { DocumentModel } from '../models/Document.js';
 import { ChatSession } from '../models/ChatSession.js';
+import { Workspace } from '../models/Workspace.js';
+import { WorkspaceMember } from '../models/WorkspaceMember.js';
 
 const router = Router();
 
@@ -14,14 +16,16 @@ router.use(authenticate, requireAdmin);
 // GET /api/admin/stats
 router.get('/stats', async (_req: AuthRequest, res: Response, next: NextFunction) => {
   try {
-    const [userCount, docCount, sessionCount, storageAgg] = await Promise.all([
+    const [userCount, workspaceCount, docCount, sessionCount, storageAgg] = await Promise.all([
       User.countDocuments(),
+      Workspace.countDocuments(),
       DocumentModel.countDocuments(),
       ChatSession.countDocuments(),
       DocumentModel.aggregate([{ $group: { _id: null, total: { $sum: '$size' } } }]),
     ]);
     return res.json({
       users: userCount,
+      workspaces: workspaceCount,
       documents: docCount,
       chatSessions: sessionCount,
       storageBytes: (storageAgg[0] as { total?: number } | undefined)?.total ?? 0,
@@ -53,6 +57,7 @@ router.delete('/users/:id', async (req: AuthRequest, res: Response, next: NextFu
     await Promise.all([
       DocumentModel.deleteMany({ userId: req.params['id'] }),
       ChatSession.deleteMany({ userId: req.params['id'] }),
+      WorkspaceMember.deleteMany({ userId: req.params['id'] }),
     ]);
 
     return res.json({ message: 'User deleted' });

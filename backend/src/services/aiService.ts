@@ -22,6 +22,7 @@ function getEmbeddings() {
 
 export async function ingestPDF(
   filePath: string,
+  workspaceId: string,
   userId: string,
   documentId: string,
 ): Promise<{ pageCount: number; chunkCount: number }> {
@@ -55,7 +56,7 @@ export async function ingestPDF(
   const splitter = new RecursiveCharacterTextSplitter({ chunkSize: 1000, chunkOverlap: 200 });
   const docs = await splitter.createDocuments(
     [cleanedText],
-    [{ userId, documentId, source: filePath }],
+    [{ workspaceId, userId, documentId, source: filePath }],
   );
 
   const supabase = createClient(
@@ -80,7 +81,7 @@ type ChatMsg = { role: string; content: string };
 
 export async function queryDocuments(
   query: string,
-  userId: string,
+  workspaceId: string,
   _history: ChatMsg[],
 ): Promise<{ answer: string; sources: string[] }> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -89,7 +90,7 @@ export async function queryDocuments(
     {
       configurable: {
         retrieverProvider: 'supabase',
-        filterKwargs: { userId },
+        filterKwargs: { workspaceId },
         k: 5,
         queryModel: 'google-genai/gemini-2.5-flash',
         responseModel: 'google-genai/gemini-2.5-flash',

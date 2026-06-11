@@ -4,10 +4,14 @@ import cors from 'cors';
 import helmet from 'helmet';
 import { rateLimit } from 'express-rate-limit';
 import { connectDB } from './config/database.js';
+import { migrateUsersToWorkspaces } from './config/migrations.js';
 import authRoutes from './routes/auth.js';
 import documentRoutes from './routes/documents.js';
 import chatRoutes from './routes/chat.js';
 import adminRoutes from './routes/admin.js';
+import workspaceRoutes from './routes/workspaces.js';
+import actionRoutes from './routes/actions.js';
+import taskRoutes from './routes/tasks.js';
 import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
@@ -21,6 +25,7 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL ?? 'http://localhost:3000',
     credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Workspace-Id'],
   }),
 );
 
@@ -35,8 +40,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/workspaces', workspaceRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/actions', actionRoutes);
+app.use('/api/tasks', taskRoutes);
 app.use('/api/admin', adminRoutes);
 
 app.get('/health', (_req, res) => {
@@ -47,8 +55,10 @@ app.use(errorHandler);
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`API server running on port ${PORT}`);
-  connectDB().catch((err: unknown) => {
-    console.error('Failed to connect to database:', err);
-    process.exit(1);
-  });
+  connectDB()
+    .then(() => migrateUsersToWorkspaces())
+    .catch((err: unknown) => {
+      console.error('Startup error:', err);
+      process.exit(1);
+    });
 });

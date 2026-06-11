@@ -44,12 +44,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const register = async (name: string, email: string, password: string) => {
     const data = await api.register(name, email, password);
     localStorage.setItem('token', data.token);
+    localStorage.setItem('workspaceId', data.workspace._id);
     setToken(data.token);
     setUser(data.user);
   };
 
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('workspaceId');
     setToken(null);
     setUser(null);
   };

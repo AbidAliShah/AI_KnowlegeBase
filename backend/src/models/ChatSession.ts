@@ -9,6 +9,7 @@ export interface IMessage {
 
 export interface IChatSession extends MongoDocument {
   _id: mongoose.Types.ObjectId;
+  workspaceId: mongoose.Types.ObjectId;
   userId: mongoose.Types.ObjectId;
   title: string;
   messages: IMessage[];
@@ -28,6 +29,7 @@ const MessageSchema = new Schema<IMessage>(
 
 const ChatSessionSchema = new Schema<IChatSession>(
   {
+    workspaceId: { type: Schema.Types.ObjectId, ref: 'Workspace', required: true, index: true },
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true, index: true },
     title: { type: String, required: true },
     messages: [MessageSchema],

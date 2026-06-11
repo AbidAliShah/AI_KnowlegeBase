@@ -3,9 +3,10 @@ import type { Response, NextFunction } from 'express';
 import multer from 'multer';
 import fs from 'fs/promises';
 import { authenticate } from '../middleware/auth.js';
-import type { AuthRequest } from '../middleware/auth.js';
+import { requireWorkspace, type WorkspaceRequest } from '../middleware/workspace.js';
 import { createError } from '../middleware/errorHandler.js';
 import { DocumentModel } from '../models/Document.js';
+import { Workspace } from '../models/Workspace.js';
 import { ingestPDF } from '../services/aiService.js';
 
 const router = Router();
@@ -36,12 +37,30 @@ const upload = multer({
 router.post(
   '/upload',
   authenticate,
+  requireWorkspace,
   upload.single('file'),
-  async (req: AuthRequest, res: Response, next: NextFunction) => {
+  async (req: WorkspaceRequest, res: Response, next: NextFunction) => {
     try {
       if (!req.file) return next(createError('No file uploaded', 400));
+      if (req.memberRole === 'viewer') {
+        return next(createError('Viewers cannot upload documents', 403));
+      }
+
+      const workspace = await Workspace.findById(req.workspaceId);
+      if (!workspace) return next(createError('Workspace not found', 404));
+
+      const docCount = await DocumentModel.countDocuments({ workspaceId: req.workspaceId });
+      if (docCount >= workspace.documentLimit) {
+        return next(
+          createError(
+            `Document limit reached (${workspace.documentLimit}). Upgrade your plan.`,
+            402,
+          ),
+        );
+      }
 
       const doc = await DocumentModel.create({
+        workspaceId: req.workspaceId,
         userId: req.user!.id,
         originalName: req.file.originalname,
         storedName: req.file.filename,
@@ -50,8 +69,7 @@ router.post(
         status: 'processing',
       });
 
-      // Process asynchronously so response is immediate
-      ingestPDF(req.file.path, req.user!.id, doc._id.toString())
+      ingestPDF(req.file.path, req.workspaceId!, req.user!.id, doc._id.toString())
         .then(({ pageCount, chunkCount }) =>
           DocumentModel.findByIdAndUpdate(doc._id, { status: 'ready', pageCount, chunkCount }),
         )
@@ -69,29 +87,50 @@ router.post(
   },
 );
 
-// GET /api/documents
-router.get('/', authenticate, async (req: AuthRequest, res: Response, next: NextFunction) => {
-  try {
-    const docs = await DocumentModel.find({ userId: req.user!.id }).sort({ createdAt: -1 });
-    return res.json({ documents: docs });
-  } catch (err) {
-    return next(err);
-  }
-});
+// GET /api/documents — workspace-scoped
+router.get(
+  '/',
+  authenticate,
+  requireWorkspace,
+  async (req: WorkspaceRequest, res: Response, next: NextFunction) => {
+    try {
+      const docs = await DocumentModel.find({ workspaceId: req.workspaceId }).sort({
+        createdAt: -1,
+      });
+      return res.json({ documents: docs });
+    } catch (err) {
+      return next(err);
+    }
+  },
+);
 
-// DELETE /api/documents/:id
-router.delete('/:id', authenticate, async (req: AuthRequest, res: Response, next: NextFunction) => {
-  try {
-    const doc = await DocumentModel.findOne({ _id: req.params['id'], userId: req.user!.id });
-    if (!doc) return next(createError('Document not found', 404));
+// DELETE /api/documents/:id — workspace-scoped
+router.delete(
+  '/:id',
+  authenticate,
+  requireWorkspace,
+  async (req: WorkspaceRequest, res: Response, next: NextFunction) => {
+    try {
+      const doc = await DocumentModel.findOne({
+        _id: req.params['id'],
+        workspaceId: req.workspaceId,
+      });
+      if (!doc) return next(createError('Document not found', 404));
 
-    await fs.unlink(`uploads/${doc.storedName}`).catch(() => undefined);
-    await doc.deleteOne();
+      const isUploader = doc.userId.toString() === req.user!.id;
+      const isAdmin = req.memberRole === 'owner' || req.memberRole === 'admin';
+      if (!isUploader && !isAdmin) {
+        return next(createError('You can only delete your own documents', 403));
+      }
 
-    return res.json({ message: 'Document deleted' });
-  } catch (err) {
-    return next(err);
-  }
-});
+      await fs.unlink(`uploads/${doc.storedName}`).catch(() => undefined);
+      await doc.deleteOne();
+
+      return res.json({ message: 'Document deleted' });
+    } catch (err) {
+      return next(err);
+    }
+  },
+);
 
 export default router;
