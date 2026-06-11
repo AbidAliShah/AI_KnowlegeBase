@@ -32,8 +32,9 @@ UserSchema.methods.comparePassword = async function (candidate: string): Promise
 };
 
 UserSchema.set('toJSON', {
-  transform: (_doc: unknown, obj: Record<string, unknown>) => {
-    delete obj['password'];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  transform: (_doc: any, obj: any) => {
+    delete obj.password;
     return obj;
   },
 });
