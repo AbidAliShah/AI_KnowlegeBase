@@ -23,6 +23,15 @@ router.post('/register', async (req: Request, res: Response, next: NextFunction)
     if (password.length < 8) {
       return next(createError('Password must be at least 8 characters', 400));
     }
+    if (!/[A-Z]/.test(password)) {
+      return next(createError('Password must contain at least one uppercase letter', 400));
+    }
+    if (!/[0-9]/.test(password)) {
+      return next(createError('Password must contain at least one number', 400));
+    }
+    if (!/[^A-Za-z0-9]/.test(password)) {
+      return next(createError('Password must contain at least one special character', 400));
+    }
 
     const existing = await User.findOne({ email });
     if (existing) return next(createError('Email already registered', 409));
