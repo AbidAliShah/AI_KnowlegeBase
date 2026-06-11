@@ -42,13 +42,10 @@ app.get('/health', (_req, res) => {
 
 app.use(errorHandler);
 
-connectDB()
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`API server running on http://localhost:${PORT}`);
-    });
-  })
-  .catch((err: unknown) => {
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`API server running on port ${PORT}`);
+  connectDB().catch((err: unknown) => {
     console.error('Failed to connect to database:', err);
     process.exit(1);
   });
+});
