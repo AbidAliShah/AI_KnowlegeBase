@@ -23,6 +23,7 @@ export async function makeSupabaseRetriever(
   const supabaseClient = createClient(
     process.env.SUPABASE_URL ?? '',
     process.env.SUPABASE_SERVICE_ROLE_KEY ?? '',
+    { realtime: { params: { eventsPerSecond: -1 } }, global: { headers: {} } },
   );
   const vectorStore = new SupabaseVectorStore(embeddings, {
     client: supabaseClient,

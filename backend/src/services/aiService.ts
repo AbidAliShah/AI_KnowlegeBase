@@ -60,6 +60,7 @@ export async function ingestPDF(
   const supabase = createClient(
     process.env.SUPABASE_URL,
     process.env.SUPABASE_SERVICE_ROLE_KEY,
+    { realtime: { params: { eventsPerSecond: -1 } }, global: { headers: {} } },
   );
 
   await SupabaseVectorStore.fromDocuments(docs, getEmbeddings(), {
