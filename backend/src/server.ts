@@ -13,6 +13,9 @@ import { errorHandler } from './middleware/errorHandler.js';
 const app = express();
 const PORT = Number(process.env.PORT ?? 3001);
 
+// Trust Railway/Vercel reverse proxy
+app.set('trust proxy', 1);
+
 app.use(helmet());
 app.use(
   cors({
