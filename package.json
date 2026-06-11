@@ -1,0 +1,20 @@
+{
+    "name": "ai-pdf-chatbot-langchain",
+    "description": "AI PDF chatbot template based on the book Learning LangChain (O'Reilly)",
+    "private": true,
+    "version": "0.0.1",
+    "author": "Mayo Oshin",
+    "license": "MIT",
+    "workspaces": [
+        "backend",
+        "frontend"
+    ],
+    "scripts": {
+        "dev:backend": "cd backend && npx tsx src/server.ts",
+        "dev:frontend": "cd frontend && npx next dev"
+    },
+    "devDependencies": {},
+    "dependencies": {
+        "@langchain/google-genai": "^0.1.7"
+    }
+}
