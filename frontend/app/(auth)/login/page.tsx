@@ -69,7 +69,7 @@ export default function LoginPage() {
               autoComplete="current-password"
             />
           </div>
-          <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700" disabled={loading}>
+          <Button type="submit" className="w-full bg-charcoal-700 hover:bg-charcoal-800 text-offwhite-100" disabled={loading}>
             {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
             Sign in
           </Button>
@@ -78,7 +78,7 @@ export default function LoginPage() {
       <CardFooter className="justify-center">
         <p className="text-sm text-gray-500">
           Don&apos;t have an account?{' '}
-          <Link href="/register" className="text-indigo-600 hover:underline font-medium">
+          <Link href="/register" className="text-charcoal-700 hover:text-mustard-600 underline-offset-2 hover:underline font-medium">
             Create one
           </Link>
         </p>

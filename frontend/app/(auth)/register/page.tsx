@@ -132,7 +132,7 @@ export default function RegisterPage() {
               </div>
             )}
           </div>
-          <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700" disabled={loading}>
+          <Button type="submit" className="w-full bg-charcoal-700 hover:bg-charcoal-800 text-offwhite-100" disabled={loading}>
             {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
             Create account
           </Button>
@@ -141,7 +141,7 @@ export default function RegisterPage() {
       <CardFooter className="justify-center">
         <p className="text-sm text-gray-500">
           Already have an account?{' '}
-          <Link href="/login" className="text-indigo-600 hover:underline font-medium">
+          <Link href="/login" className="text-charcoal-700 hover:text-mustard-600 underline-offset-2 hover:underline font-medium">
             Sign in
           </Link>
         </p>

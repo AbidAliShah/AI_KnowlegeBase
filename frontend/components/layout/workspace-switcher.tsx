@@ -56,7 +56,7 @@ export function WorkspaceSwitcher() {
 
   if (!currentWorkspace) {
     return (
-      <div className="px-2 py-3 text-xs text-gray-400 flex items-center gap-2">
+      <div className="px-2 py-3 text-xs text-offwhite-400 flex items-center gap-2">
         <Loader2 className="h-3 w-3 animate-spin" /> Loading workspace...
       </div>
     );
@@ -67,17 +67,17 @@ export function WorkspaceSwitcher() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <button
-            className="w-full flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors text-left"
+            className="w-full flex items-center gap-2 px-3 py-2 rounded-md bg-charcoal-600 hover:bg-charcoal-500 transition-colors text-left"
             type="button"
           >
-            <Building2 className="h-4 w-4 text-indigo-400 shrink-0" />
+            <Building2 className="h-4 w-4 text-mustard-500 shrink-0" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium truncate">{currentWorkspace.name}</p>
-              <p className="text-xs text-gray-400 capitalize">
+              <p className="text-xs text-offwhite-400 capitalize">
                 {currentWorkspace.role} · {currentWorkspace.plan}
               </p>
             </div>
-            <ChevronsUpDown className="h-3 w-3 text-gray-400 shrink-0" />
+            <ChevronsUpDown className="h-3 w-3 text-offwhite-400 shrink-0" />
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-60" align="start">
@@ -94,7 +94,7 @@ export function WorkspaceSwitcher() {
                 <p className="text-sm">{ws.name}</p>
                 <p className="text-xs text-gray-500 capitalize">{ws.role}</p>
               </div>
-              {ws._id === currentWorkspace._id && <Check className="h-4 w-4 text-indigo-600" />}
+              {ws._id === currentWorkspace._id && <Check className="h-4 w-4 text-mustard-500" />}
             </DropdownMenuItem>
           ))}
           <DropdownMenuSeparator />

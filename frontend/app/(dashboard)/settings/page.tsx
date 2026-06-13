@@ -59,14 +59,14 @@ export default function SettingsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="h-12 w-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg">
+              <div className="h-12 w-12 rounded-full bg-charcoal-700 flex items-center justify-center text-offwhite-100 font-bold text-lg">
                 {user?.name?.charAt(0).toUpperCase()}
               </div>
               <div>
-                <p className="font-semibold text-gray-900">{user?.name}</p>
+                <p className="font-semibold text-charcoal-700">{user?.name}</p>
                 <p className="text-sm text-gray-500">{user?.email}</p>
               </div>
-              <Badge className={user?.role === 'admin' ? 'bg-indigo-100 text-indigo-700 ml-auto' : 'ml-auto'}>
+              <Badge className={user?.role === 'admin' ? 'bg-mustard-500 text-charcoal-700 ml-auto' : 'ml-auto'}>
                 {user?.role}
               </Badge>
             </div>
@@ -111,7 +111,7 @@ export default function SettingsPage() {
                   placeholder="Min. 8 characters"
                 />
               </div>
-              <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700" disabled={saving}>
+              <Button type="submit" className="bg-charcoal-700 hover:bg-charcoal-800 text-offwhite-100" disabled={saving}>
                 {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
                 Save changes
               </Button>

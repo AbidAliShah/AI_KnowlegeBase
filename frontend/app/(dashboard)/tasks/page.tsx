@@ -132,9 +132,9 @@ export default function TasksPage() {
             <button
               key={f}
               onClick={() => setFilter(f)}
-              className={`px-3 py-1 rounded-full border ${
+              className={`px-3 py-1 rounded-md border ${
                 filter === f
-                  ? 'bg-indigo-600 text-white border-indigo-600'
+                  ? 'bg-charcoal-700 text-offwhite-100 border-charcoal-700'
                   : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
               }`}
               type="button"
@@ -150,7 +150,7 @@ export default function TasksPage() {
 
         {loading ? (
           <div className="flex justify-center py-12">
-            <Loader2 className="h-6 w-6 animate-spin text-indigo-400" />
+            <Loader2 className="h-6 w-6 animate-spin text-charcoal-700" />
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-16 text-gray-400">
@@ -181,7 +181,7 @@ export default function TasksPage() {
                         </Badge>
                       )}
                       {task.sourceType === 'ai_action' && (
-                        <Badge variant="outline" className="bg-indigo-50 text-indigo-700 border-indigo-200 text-xs">
+                        <Badge variant="outline" className="bg-mustard-100 text-charcoal-700 border-mustard-300 text-xs">
                           <Sparkles className="h-2.5 w-2.5 mr-0.5" /> AI
                         </Badge>
                       )}

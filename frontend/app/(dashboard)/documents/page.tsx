@@ -99,14 +99,14 @@ export default function DocumentsPage() {
       <div className="flex-1 p-4 sm:p-6 space-y-6">
         {/* Upload zone */}
         <Card
-          className="border-2 border-dashed border-indigo-200 hover:border-indigo-400 transition-colors cursor-pointer"
+          className="border-2 border-dashed border-charcoal-200 hover:border-mustard-500 transition-colors cursor-pointer"
           onClick={() => fileInputRef.current?.click()}
         >
           <CardContent className="flex flex-col items-center justify-center py-10 text-center gap-3">
             {uploading ? (
-              <Loader2 className="h-10 w-10 text-indigo-400 animate-spin" />
+              <Loader2 className="h-10 w-10 text-charcoal-700 animate-spin" />
             ) : (
-              <Upload className="h-10 w-10 text-indigo-400" />
+              <Upload className="h-10 w-10 text-charcoal-700" />
             )}
             <div>
               <p className="font-semibold text-gray-700">
@@ -127,7 +127,7 @@ export default function DocumentsPage() {
         {/* Document list */}
         {loadingDocs ? (
           <div className="flex justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-indigo-400" />
+            <Loader2 className="h-8 w-8 animate-spin text-charcoal-700" />
           </div>
         ) : documents.length === 0 ? (
           <div className="text-center py-12 text-gray-400">
@@ -140,11 +140,11 @@ export default function DocumentsPage() {
               <Card key={doc._id} className="hover:shadow-sm transition-shadow">
                 <CardContent className="py-4">
                   <div className="flex items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap">
-                    <div className="p-2 bg-indigo-50 rounded-lg shrink-0">
-                      <FileText className="h-5 w-5 text-indigo-600" />
+                    <div className="p-2 bg-offwhite-200 rounded-md shrink-0">
+                      <FileText className="h-5 w-5 text-charcoal-700" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 truncate">{doc.originalName}</p>
+                      <p className="font-medium text-charcoal-700 truncate">{doc.originalName}</p>
                       <div className="flex items-center gap-2 sm:gap-3 mt-1 text-xs text-gray-400 flex-wrap">
                         <span>{formatBytes(doc.size)}</span>
                         {doc.pageCount && <span>{doc.pageCount} pages</span>}

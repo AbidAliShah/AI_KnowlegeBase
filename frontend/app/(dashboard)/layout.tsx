@@ -19,15 +19,15 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   if (isLoading || !user) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-50">
-        <Loader2 className="h-8 w-8 animate-spin text-indigo-600" />
+      <div className="flex items-center justify-center min-h-screen bg-offwhite-200">
+        <Loader2 className="h-8 w-8 animate-spin text-charcoal-700" />
       </div>
     );
   }
 
   return (
     <SidebarProvider>
-      <div className="flex h-screen bg-gray-50 overflow-hidden">
+      <div className="flex h-screen bg-offwhite-200 overflow-hidden">
         <Sidebar />
         <main className="flex-1 min-w-0 overflow-auto flex flex-col">{children}</main>
       </div>

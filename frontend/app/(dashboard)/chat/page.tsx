@@ -116,10 +116,10 @@ export default function ChatPage() {
                 >
                   <div
                     className={cn(
-                      'max-w-[85%] sm:max-w-[75%] rounded-2xl px-3 sm:px-4 py-2.5 sm:py-3 text-sm leading-relaxed break-words',
+                      'max-w-[85%] sm:max-w-[75%] rounded-md px-3 sm:px-4 py-2.5 sm:py-3 text-sm leading-relaxed break-words',
                       msg.role === 'user'
-                        ? 'bg-indigo-600 text-white rounded-tr-sm'
-                        : 'bg-gray-100 text-gray-900 rounded-tl-sm',
+                        ? 'bg-charcoal-700 text-offwhite-100 rounded-tr-sm'
+                        : 'bg-offwhite-200 text-charcoal-700 rounded-tl-sm',
                     )}
                   >
                     <p className="whitespace-pre-wrap">{msg.content}</p>
@@ -138,8 +138,8 @@ export default function ChatPage() {
               ))}
               {loading && (
                 <div className="flex justify-start">
-                  <div className="bg-gray-100 rounded-2xl rounded-tl-sm px-4 py-3">
-                    <Loader2 className="h-4 w-4 animate-spin text-gray-500" />
+                  <div className="bg-offwhite-200 rounded-md rounded-tl-sm px-4 py-3">
+                    <Loader2 className="h-4 w-4 animate-spin text-charcoal-700" />
                   </div>
                 </div>
               )}
@@ -161,7 +161,7 @@ export default function ChatPage() {
           <Button
             onClick={() => void sendMessage()}
             disabled={loading || !input.trim()}
-            className="bg-indigo-600 hover:bg-indigo-700 self-end"
+            className="bg-charcoal-700 hover:bg-charcoal-800 text-offwhite-100 self-end"
           >
             {loading ? (
               <Loader2 className="h-4 w-4 animate-spin" />

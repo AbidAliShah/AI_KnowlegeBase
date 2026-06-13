@@ -20,12 +20,12 @@ interface IntentChip {
 }
 
 const INTENTS: IntentChip[] = [
-  { id: 'auto', label: 'Auto-detect', icon: Sparkles, color: 'bg-indigo-100 text-indigo-700 border-indigo-300' },
-  { id: 'summarize', label: 'Summarize', icon: FileText, color: 'bg-indigo-50 text-indigo-700 border-indigo-200' },
-  { id: 'email_draft', label: 'Email draft', icon: Mail, color: 'bg-blue-50 text-blue-700 border-blue-200' },
-  { id: 'create_tasks', label: 'Create tasks', icon: ListChecks, color: 'bg-green-50 text-green-700 border-green-200' },
-  { id: 'create_plan', label: 'Build plan', icon: Map, color: 'bg-purple-50 text-purple-700 border-purple-200' },
-  { id: 'answer', label: 'Answer only', icon: MessageSquare, color: 'bg-gray-50 text-gray-700 border-gray-200' },
+  { id: 'auto', label: 'Auto-detect', icon: Sparkles, color: 'bg-mustard-100 text-charcoal-700 border-mustard-400' },
+  { id: 'summarize', label: 'Summarize', icon: FileText, color: 'bg-offwhite-200 text-charcoal-700 border-charcoal-200' },
+  { id: 'email_draft', label: 'Email draft', icon: Mail, color: 'bg-offwhite-200 text-charcoal-700 border-charcoal-200' },
+  { id: 'create_tasks', label: 'Create tasks', icon: ListChecks, color: 'bg-offwhite-200 text-charcoal-700 border-charcoal-200' },
+  { id: 'create_plan', label: 'Build plan', icon: Map, color: 'bg-offwhite-200 text-charcoal-700 border-charcoal-200' },
+  { id: 'answer', label: 'Answer only', icon: MessageSquare, color: 'bg-offwhite-200 text-charcoal-700 border-charcoal-200' },
 ];
 
 const EXAMPLES: Record<string, string[]> = {
@@ -70,7 +70,7 @@ export default function ActionsPage() {
         <div className="max-w-3xl mx-auto space-y-6">
           <div>
             <h2 className="text-xl font-semibold flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-indigo-500" />
+              <Sparkles className="h-5 w-5 text-mustard-500" />
               What do you want AI to do?
             </h2>
             <p className="text-sm text-gray-500 mt-1">
@@ -85,9 +85,9 @@ export default function ActionsPage() {
                 key={it.id}
                 onClick={() => setIntent(it.id)}
                 className={cn(
-                  'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all',
+                  'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium border transition-all',
                   intent === it.id
-                    ? `${it.color} ring-2 ring-offset-1 ring-indigo-300`
+                    ? `${it.color} ring-2 ring-offset-1 ring-mustard-400`
                     : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50',
                 )}
                 type="button"
@@ -114,7 +114,7 @@ export default function ActionsPage() {
                     <button
                       key={ex}
                       onClick={() => setQuery(ex)}
-                      className="text-xs text-gray-500 hover:text-indigo-600 underline-offset-2 hover:underline"
+                      className="text-xs text-gray-500 hover:text-charcoal-700 underline-offset-2 hover:underline"
                       type="button"
                     >
                       {ex}
@@ -124,7 +124,7 @@ export default function ActionsPage() {
                 <Button
                   onClick={() => void run()}
                   disabled={loading || !query.trim()}
-                  className="bg-indigo-600 hover:bg-indigo-700"
+                  className="bg-charcoal-700 hover:bg-charcoal-800 text-offwhite-100"
                 >
                   {loading ? (
                     <>

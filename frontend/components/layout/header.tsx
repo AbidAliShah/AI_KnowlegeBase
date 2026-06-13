@@ -32,14 +32,14 @@ export function Header({ title }: HeaderProps) {
         >
           <Menu className="h-5 w-5" />
         </Button>
-        <h1 className="text-lg sm:text-xl font-semibold text-gray-900 truncate">{title}</h1>
+        <h1 className="text-lg sm:text-xl font-semibold text-charcoal-700 truncate">{title}</h1>
       </div>
       <div className="flex items-center gap-3 shrink-0">
         <span className="text-sm text-gray-500 hidden sm:block truncate max-w-[200px]">
           {user?.email}
         </span>
         <Avatar className="h-8 w-8">
-          <AvatarFallback className="bg-indigo-100 text-indigo-600 text-sm font-medium">
+          <AvatarFallback className="bg-charcoal-700 text-offwhite-100 text-sm font-medium">
             {initials}
           </AvatarFallback>
         </Avatar>

@@ -44,14 +44,14 @@ export default function HistoryPage() {
       <div className="flex-1 p-4 sm:p-6 space-y-4">
         {loading ? (
           <div className="flex justify-center py-12">
-            <Loader2 className="h-8 w-8 animate-spin text-indigo-400" />
+            <Loader2 className="h-8 w-8 animate-spin text-charcoal-700" />
           </div>
         ) : sessions.length === 0 ? (
           <div className="text-center py-12 text-gray-400">
             <MessageSquare className="h-12 w-12 mx-auto opacity-30 mb-3" />
             <p>No conversations yet.</p>
             <Button
-              className="mt-4 bg-indigo-600 hover:bg-indigo-700"
+              className="mt-4 bg-charcoal-700 hover:bg-charcoal-800 text-offwhite-100"
               onClick={() => router.push('/chat')}
             >
               Start your first chat
@@ -61,11 +61,11 @@ export default function HistoryPage() {
           sessions.map((session) => (
             <Card key={session._id} className="hover:shadow-sm transition-shadow">
               <CardContent className="flex items-center gap-3 sm:gap-4 py-4">
-                <div className="p-2 bg-indigo-50 rounded-lg shrink-0">
-                  <MessageSquare className="h-5 w-5 text-indigo-600" />
+                <div className="p-2 bg-offwhite-200 rounded-md shrink-0">
+                  <MessageSquare className="h-5 w-5 text-charcoal-700" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-gray-900 truncate">{session.title}</p>
+                  <p className="font-medium text-charcoal-700 truncate">{session.title}</p>
                   <div className="flex items-center gap-2 sm:gap-3 mt-1 text-xs text-gray-400 flex-wrap">
                     <span>{session.messages.length} messages</span>
                     <span>{new Date(session.updatedAt).toLocaleString()}</span>
@@ -74,7 +74,7 @@ export default function HistoryPage() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="text-gray-400 hover:text-indigo-600 shrink-0"
+                  className="text-gray-400 hover:text-charcoal-700 shrink-0"
                   onClick={() => router.push(`/chat?session=${session._id}`)}
                 >
                   <ArrowRight className="h-4 w-4" />

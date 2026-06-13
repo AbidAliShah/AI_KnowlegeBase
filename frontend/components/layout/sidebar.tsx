@@ -38,9 +38,9 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   const { user, logout } = useAuth();
 
   return (
-    <div className="flex flex-col h-full bg-gray-900 text-white px-4 py-6">
+    <div className="flex flex-col h-full bg-charcoal-700 text-offwhite-100 px-4 py-6">
       <div className="flex items-center gap-2 mb-6 px-2">
-        <BrainCircuit className="h-7 w-7 text-indigo-400" />
+        <BrainCircuit className="h-7 w-7 text-mustard-500" />
         <span className="text-lg font-bold tracking-tight">KnowledgeAI</span>
       </div>
 
@@ -55,10 +55,10 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             href={href}
             onClick={onNavigate}
             className={cn(
-              'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors',
               pathname === href || pathname.startsWith(href + '/')
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                ? 'bg-mustard-500 text-charcoal-700'
+                : 'text-offwhite-300 hover:bg-charcoal-600 hover:text-offwhite-100',
             )}
           >
             <Icon className="h-4 w-4" />
@@ -70,10 +70,10 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             href="/admin"
             onClick={onNavigate}
             className={cn(
-              'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+              'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors',
               pathname === '/admin'
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-400 hover:bg-gray-800 hover:text-white',
+                ? 'bg-mustard-500 text-charcoal-700'
+                : 'text-offwhite-300 hover:bg-charcoal-600 hover:text-offwhite-100',
             )}
           >
             <ShieldCheck className="h-4 w-4" />
@@ -82,15 +82,15 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         )}
       </nav>
 
-      <div className="border-t border-gray-700 pt-4 mt-4">
+      <div className="border-t border-charcoal-500 pt-4 mt-4">
         <div className="px-2 mb-3">
           <p className="text-sm font-medium truncate">{user?.name}</p>
-          <p className="text-xs text-gray-400 truncate">{user?.email}</p>
+          <p className="text-xs text-offwhite-400 truncate">{user?.email}</p>
         </div>
         <Button
           variant="ghost"
           size="sm"
-          className="w-full justify-start text-gray-400 hover:text-white hover:bg-gray-800"
+          className="w-full justify-start text-offwhite-300 hover:text-offwhite-100 hover:bg-charcoal-600"
           onClick={logout}
         >
           <LogOut className="h-4 w-4 mr-2" />
@@ -115,7 +115,7 @@ export function Sidebar() {
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent
           side="left"
-          className="p-0 w-72 bg-gray-900 border-gray-800 text-white [&>button]:text-white [&>button]:opacity-80 [&>button]:hover:opacity-100"
+          className="p-0 w-72 bg-charcoal-700 border-charcoal-500 text-offwhite-100 [&>button]:text-offwhite-100 [&>button]:opacity-80 [&>button]:hover:opacity-100"
         >
           <SidebarContent onNavigate={closeMobile} />
         </SheetContent>

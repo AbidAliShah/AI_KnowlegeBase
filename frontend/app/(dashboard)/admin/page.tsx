@@ -57,7 +57,7 @@ export default function AdminPage() {
       <div className="flex flex-col h-full">
         <Header title="Admin" />
         <div className="flex justify-center items-center flex-1">
-          <Loader2 className="h-8 w-8 animate-spin text-indigo-400" />
+          <Loader2 className="h-8 w-8 animate-spin text-charcoal-700" />
         </div>
       </div>
     );
@@ -79,7 +79,7 @@ export default function AdminPage() {
               <Card key={label}>
                 <CardHeader className="flex flex-row items-center justify-between pb-2">
                   <CardTitle className="text-sm font-medium text-gray-500">{label}</CardTitle>
-                  <Icon className="h-4 w-4 text-indigo-500" />
+                  <Icon className="h-4 w-4 text-mustard-500" />
                 </CardHeader>
                 <CardContent>
                   <p className="text-2xl font-bold">{value}</p>
@@ -99,14 +99,14 @@ export default function AdminPage() {
             {users.map((u) => (
               <Card key={u._id}>
                 <CardContent className="flex items-center gap-3 sm:gap-4 py-3">
-                  <div className="h-9 w-9 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-semibold shrink-0">
+                  <div className="h-9 w-9 rounded-full bg-charcoal-700 flex items-center justify-center text-offwhite-100 font-semibold shrink-0">
                     {u.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900 truncate">{u.name}</p>
+                    <p className="font-medium text-charcoal-700 truncate">{u.name}</p>
                     <p className="text-sm text-gray-400 truncate">{u.email}</p>
                   </div>
-                  <Badge className={u.role === 'admin' ? 'bg-indigo-100 text-indigo-700 shrink-0' : 'shrink-0'}>
+                  <Badge className={u.role === 'admin' ? 'bg-mustard-500 text-charcoal-700 shrink-0' : 'shrink-0'}>
                     {u.role}
                   </Badge>
                   <p className="text-xs text-gray-400 hidden md:block shrink-0">
@@ -131,9 +131,9 @@ export default function AdminPage() {
             {docs.map((doc) => (
               <Card key={doc._id}>
                 <CardContent className="flex items-center gap-3 sm:gap-4 py-3">
-                  <FileText className="h-5 w-5 text-indigo-400 shrink-0" />
+                  <FileText className="h-5 w-5 text-charcoal-700 shrink-0" />
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900 truncate">{doc.originalName}</p>
+                    <p className="font-medium text-charcoal-700 truncate">{doc.originalName}</p>
                     <div className="text-xs text-gray-400 flex flex-wrap gap-2 mt-1">
                       <span>{formatBytes(doc.size)}</span>
                       {doc.userId && typeof doc.userId === 'object' && (

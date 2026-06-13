@@ -21,9 +21,9 @@ export function ActionResultView({ result }: { result: ActionResult }) {
 
   if (result.type === 'summarize') {
     return (
-      <Card className="border-indigo-200">
+      <Card className="border-charcoal-200">
         <CardContent className="p-5 space-y-3">
-          <div className="flex items-center gap-2 text-indigo-700">
+          <div className="flex items-center gap-2 text-charcoal-700">
             <FileText className="h-4 w-4" />
             <span className="text-xs font-semibold uppercase">Summary</span>
           </div>
@@ -34,7 +34,7 @@ export function ActionResultView({ result }: { result: ActionResult }) {
             <ul className="space-y-1.5">
               {result.bulletPoints.map((b, i) => (
                 <li key={i} className="text-sm flex gap-2">
-                  <span className="text-indigo-500 mt-0.5">•</span>
+                  <span className="text-mustard-500 mt-0.5">•</span>
                   <span>{b}</span>
                 </li>
               ))}
@@ -146,9 +146,9 @@ export function ActionResultView({ result }: { result: ActionResult }) {
 
   if (result.type === 'create_plan') {
     return (
-      <Card className="border-purple-200">
+      <Card className="border-charcoal-200">
         <CardContent className="p-5 space-y-3">
-          <div className="flex items-center gap-2 text-purple-700">
+          <div className="flex items-center gap-2 text-charcoal-700">
             <Map className="h-4 w-4" />
             <span className="text-xs font-semibold uppercase">Plan</span>
           </div>
@@ -156,12 +156,12 @@ export function ActionResultView({ result }: { result: ActionResult }) {
           <p className="text-sm text-gray-700">{result.overview}</p>
           <div className="space-y-3">
             {result.sections.map((s, i) => (
-              <div key={i} className="border-l-2 border-purple-300 pl-3">
-                <p className="font-semibold text-sm text-purple-900">{s.heading}</p>
+              <div key={i} className="border-l-2 border-mustard-400 pl-3">
+                <p className="font-semibold text-sm text-charcoal-700">{s.heading}</p>
                 <ul className="mt-1 space-y-0.5">
                   {s.items.map((item, j) => (
                     <li key={j} className="text-sm flex gap-2">
-                      <span className="text-purple-400 mt-0.5">›</span>
+                      <span className="text-mustard-500 mt-0.5">›</span>
                       <span>{item}</span>
                     </li>
                   ))}

@@ -22,9 +22,9 @@ import { Loader2, UserPlus, Trash2, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ROLE_COLORS: Record<WorkspaceRole, string> = {
-  owner: 'bg-purple-100 text-purple-700 border-purple-200',
-  admin: 'bg-indigo-100 text-indigo-700 border-indigo-200',
-  member: 'bg-blue-100 text-blue-700 border-blue-200',
+  owner: 'bg-mustard-500 text-charcoal-700 border-mustard-600',
+  admin: 'bg-charcoal-700 text-offwhite-100 border-charcoal-800',
+  member: 'bg-offwhite-200 text-charcoal-700 border-charcoal-200',
   viewer: 'bg-gray-100 text-gray-700 border-gray-200',
 };
 
@@ -171,7 +171,7 @@ export default function MembersPage() {
           <CardContent>
             {loading ? (
               <div className="flex justify-center py-8">
-                <Loader2 className="h-6 w-6 animate-spin text-indigo-400" />
+                <Loader2 className="h-6 w-6 animate-spin text-charcoal-700" />
               </div>
             ) : (
               <div className="space-y-2">
@@ -180,9 +180,9 @@ export default function MembersPage() {
                   return (
                     <div
                       key={m._id}
-                      className="flex items-center gap-3 py-3 px-3 rounded-lg hover:bg-gray-50"
+                      className="flex items-center gap-3 py-3 px-3 rounded-md hover:bg-offwhite-200"
                     >
-                      <div className="h-9 w-9 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-sm font-semibold shrink-0">
+                      <div className="h-9 w-9 rounded-full bg-charcoal-700 text-offwhite-100 flex items-center justify-center text-sm font-semibold shrink-0">
                         {m.userId.name?.charAt(0).toUpperCase() ?? '?'}
                       </div>
                       <div className="flex-1 min-w-0">
